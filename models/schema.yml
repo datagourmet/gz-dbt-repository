@@ -58,3 +58,17 @@ sources:
             description: the cost of preparing the parcel in the warehouse
           - name: ship_cost
             description: the shipping cost paid by Greenweez to the carrier/transporter
+models:
+      - name: int_sales_margin
+        tests:
+          - unique:
+              column_name: "(orders_id || '-' || products_id)"
+          - not_null:
+              column_name:
+                - orders_id
+                - products_id
+                - margin
+                - Purchase_cost
+                - date_date
+                - revenue
+                - quantity
