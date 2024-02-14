@@ -35,7 +35,7 @@ sources:
             description: primary key of the table
             tests:
               - unique
-              - not null
+              - not_null
           - name: purchase_price
             description: the purchase price of the product
 
@@ -47,7 +47,7 @@ sources:
             description: primary key of the table
             tests:
               - unique
-              - not null
+              - not_null
           - name: shipping_fee
             description: the price the customer pays for shipping
           - name: log_cost
