@@ -40,3 +40,8 @@ models:
     # Applies to all files under models/example/
     example:
       +materialized: table
+
+# Add your dbt_utils package here
+packages:
+  - package: dbt-labs/dbt_utils
+    version: "0.7.0"  # Use the version number that is compatible with your dbt version
