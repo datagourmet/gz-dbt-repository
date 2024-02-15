@@ -37,11 +37,15 @@ clean-targets:         # directories to be removed by `dbt clean`
 
 models:
   my_new_project:
+    materialized: view
     # Applies to all files under models/example/
-    example:
+    mart:
       +materialized: table
+      finance:
+        +schema: finance
 
 # Add your dbt_utils package here
 packages:
   - package: dbt-labs/dbt_utils
     version: "1.1.1"  # Use the version number that is compatible with your dbt version
+
