@@ -30,7 +30,6 @@ sources:
               combination_of_columns:
                 - orders_id
                 - pdt_id
-
       - name: product
         identifier: raw_gz_product
         description: products of Greenweez
@@ -58,6 +57,14 @@ sources:
             description: the cost of preparing the parcel in the warehouse
           - name: ship_cost
             description: the shipping cost paid by Greenweez to the carrier/transporter
+      - name: adwords
+        identifier: raw_gz_adwords
+      - name: bing
+        identifier: raw_gz_bing
+      - name: criteo
+        identifier: raw_gz_criteo
+      - name: facebook
+        identifier: raw_gz_facebook
 models:
       - name: int_sales_margin
         tests:
