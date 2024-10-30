@@ -1,5 +1,4 @@
 version: 2
-
 sources:
   - name: raw
     schema: gz_raw_data
@@ -9,7 +8,7 @@ sources:
           warn_after: {count: 90, period: day}
         loaded_at_field: "CAST(date_date as TIMESTAMP)"
         identifier: raw_gz_sales
-        description: sales of Greenweez / we have one row per product ID found in each order ID
+        description: sales of Greenweez / we have one row per productid found in each orders_id
         columns:
           - name: date_date
             description: the date of purchase
@@ -24,7 +23,7 @@ sources:
         tests:
           - unique:
               column_name: "(orders_id || '-' || pdt_id)"
-          # Alternative unique combination test
+          ## OR ##
           - dbt_utils.unique_combination_of_columns:
               combination_of_columns:
                 - orders_id
@@ -40,27 +39,9 @@ sources:
               - not_null
           - name: purchase_price
             description: the purchase price of the product
-      - name: criteo
-        identifier: raw_gz_criteo
-        description: criteo advertising data
-        columns:
-          - name: date_date
-            description: date of campaign
-          - name: paid_source
-            description: paid source of the campaign
-          - name: campaign_key
-            description: key of the campaign
-          - name: campgn_name
-            description: name of the campaign
-          - name: ads_cost
-            description: cost of the ad
-          - name: impression
-            description: number of impressions
-          - name: click
-            description: number of clicks
       - name: ship
         identifier: raw_gz_ship
-        description: shipping data of Greenweez
+        description: ship of Greenweez
         columns:
           - name: orders_id
             description: primary key of the table
@@ -77,51 +58,83 @@ sources:
         identifier: raw_gz_adwords
       - name: bing
         identifier: raw_gz_bing
+      - name: criteo
+        identifier: raw_gz_criteo
       - name: facebook
         identifier: raw_gz_facebook
-
 models:
+      - name: int_sales_margin
+        tests:
+          - unique:
+              column_name: "(orders_id || '-' || products_id)"
+          - not_null:
+              column_name:
+                - orders_id
+                - products_id
+                - margin
+                - Purchase_cost
+                - date_date
+                - revenue
+                - quantity
+models:
+  - name: int_orders_margin
+    description: margin calcultation per order
+    columns:
+      - name: order_id
+        description: primary key
+      - name: margin
+        description: Margin = Revenue - Purchase_cost
+      - name: Purchase_cost
+        description: Purchase_cost = Quantity * Purchase_price
+      - name: date_date
+        description: date of the order
+      - name: revenue
+        description: sum of revenue per order
+      - name: quantity
+        description: sum of quantity per order
+models:
+  - name: stg_raw_product
+  - name: stg_raw_sales
+  - name: stg_raw_ship
   - name: int_sales_margin
-    description: margin calculation per order line / product sale
-    tests:
-      - unique:
-          column_name: "(orders_id || '-' || products_id)"
-      - not_null:
-          column_name:
-            - orders_id
-            - products_id
-            - margin
-            - Purchase_cost
-            - date_date
-            - revenue
-            - quantity
+    description: margin calcultation per order line / product sale
     columns:
       - name: margin
         description: Margin = Revenue - Purchase_cost
       - name: Purchase_cost
-        description: Purchase_cost = Quantity * Purchase_price 
+        description: Purchase_cost = Quantity * Purchase_price
   - name: int_orders_margin
-    description: margin calculation per order
+    description: margin calcultation per order
     columns:
       - name: orders_id
         description: primary key
       - name: margin
         description: Margin = Revenue - Purchase_cost
       - name: Purchase_cost
-        description: Purchase_cost = Quantity * Purchase_price 
+        description: Purchase_cost = Quantity * Purchase_price
       - name: date_date
         description: date of the order
       - name: revenue
-        description: sum of revenue per order 
+        description: sum of revenue per order
       - name: quantity
         description: sum of quantity per order
   - name: int_orders_operational
-    description: operational margin calculation per order
+    description: operational margin calcultation per order
     columns:
       - name: operational_margin
         description: Operational margin = margin + shipping fee - log_cost - ship_cost
   - name: finance_days
-    description: finance calculation per day
-  - name: stg_raw_product
-  - name: stg_raw_sales
-  - name: stg_raw_ship
+    description: finance calculation per days
+
+
+
+
+
+
+
+
+
+
+
+
+
