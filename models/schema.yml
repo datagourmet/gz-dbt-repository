@@ -96,6 +96,14 @@ models:
   - name: stg_raw_product
   - name: stg_raw_sales
   - name: stg_raw_ship
+  - name: bing
+    identifier: stg_raw__bing
+  - name: facebook
+    identifier: stg_raw__facebook
+  - name: criteo
+    identifier: stg_raw__criteo
+  - name: adwords
+    identifier: stg_raw__adwords
   - name: int_sales_margin
     description: margin calcultation per order line / product sale
     columns:
@@ -124,6 +132,7 @@ models:
       - name: operational_margin
         description: Operational margin = margin + shipping fee - log_cost - ship_cost
   - name: finance_days
+<<<<<<< HEAD
     description: finance calculation per days
 
 
@@ -138,3 +147,6 @@ models:
 
 
 
+=======
+    description: finance calculation per days
+>>>>>>> 8fc9419011b61e7425a5c78258b90fcdeafb3766
