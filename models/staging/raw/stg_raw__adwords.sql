@@ -1,4 +1,4 @@
--- stg_raw_adwords.sql
+
 
  with
 
