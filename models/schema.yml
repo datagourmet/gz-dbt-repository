@@ -107,6 +107,15 @@ models:
     identifier: stg_raw__criteo
   - name: adwords
     identifier: stg_raw__adwords
+  - name: int_campaign
+    description: data from the 4 campaigns
+    columns:
+      - name: paid_source
+        tests:
+        - not_null
+      - name: campaign_name
+        tests:
+        - not_null
   - name: int_sales_margin
     description: margin calcultation per order line / product sale
     columns:
@@ -134,5 +143,17 @@ models:
     columns:
       - name: operational_margin 
         description: Operational margin = margin + shipping fee - log_cost - ship_cost
+  - name: int_campaigns_day
   - name: finance_days
     description: finance calculation per days
+  - name: finance_campaigns_day
+    description: global kpi
+    columns:
+      - name: ads_margin
+        description: operational_margin - ads_cost
+        tests:
+          - not_null
+      - name: average_basket
+        description: average basket cost for each day
+        tests:
+          - not_null
