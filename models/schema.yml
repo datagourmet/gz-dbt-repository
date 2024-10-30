@@ -99,6 +99,14 @@ models:
   - name: stg_raw_product
   - name: stg_raw_sales
   - name: stg_raw_ship
+  - name: bing
+    identifier: stg_raw__bing
+  - name: facebook
+    identifier: stg_raw__facebook
+  - name: criteo
+    identifier: stg_raw__criteo
+  - name: adwords
+    identifier: stg_raw__adwords
   - name: int_sales_margin
     description: margin calcultation per order line / product sale
     columns:
