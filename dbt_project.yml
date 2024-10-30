@@ -39,6 +39,8 @@ models:
   my_new_project:
     materialized: view
     # Applies to all files under models/example/
+    intermediate:
+      +materialized: table    
     mart:
       +materialized: table
       finance:
